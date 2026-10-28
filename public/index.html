@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="color-scheme" content="dark">
+<title>Kynera – Studio de développement</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@500;600;700&family=Sora:wght@300;400;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  color-scheme:dark;
+  --bg:#0A0706; --surface:#130D0A; --ink:#F6EDE6; --muted:#A89588; --line:#2B1D15; --accent:#FF7A1A; --accent2:#FFB347;
+  --display:"Chakra Petch","Arial Narrow",Arial,sans-serif;
+  --body:"Sora","Helvetica Neue",Arial,sans-serif;
+  box-sizing:border-box;
+  padding-top:env(safe-area-inset-top,0px); padding-bottom:env(safe-area-inset-bottom,0px);
+}
+html{scroll-padding-top:env(safe-area-inset-top,0px);scroll-behavior:smooth}
+*,*::before,*::after{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--body);font-weight:300;font-size:1rem;line-height:1.7}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);background:var(--bg);z-index:30}
+a{color:inherit}
+:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
+.wrap{max-width:70rem;margin:0 auto;padding:0 1.5rem}
+header{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;background:rgba(10,7,6,.85);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+.bar{display:flex;align-items:center;justify-content:space-between;height:4rem}
+.logo{font-family:var(--display);font-weight:700;font-size:1.25rem;text-decoration:none;letter-spacing:.02em}
+.logo span{color:var(--accent);text-shadow:0 0 12px rgba(255,122,26,.7)}
+nav{display:flex;gap:1.75rem;font-size:.9rem}
+nav a{text-decoration:none;color:var(--muted)}
+nav a:hover{color:var(--accent)}
+
+.hero{position:relative;overflow:hidden;border-bottom:1px solid var(--line)}
+#net{position:absolute;inset:0;width:100%;height:100%}
+.hero::after{content:"";position:absolute;inset:0;background:radial-gradient(ellipse at 20% 40%,rgba(10,7,6,.2),var(--bg) 85%);pointer-events:none}
+.hero .wrap{position:relative;z-index:1;padding-top:7rem;padding-bottom:6rem}
+.hero h1{font-family:var(--display);font-weight:700;font-size:clamp(2.5rem,8vw,5.5rem);line-height:1;letter-spacing:-.01em;margin:0 0 1.5rem;max-width:15ch;text-shadow:0 0 40px rgba(255,122,26,.25)}
+.hero p{max-width:34rem;color:var(--muted);font-size:1.1rem;margin:0 0 2.25rem}
+.btn{display:inline-block;font-family:var(--display);font-weight:600;font-size:1rem;text-decoration:none;color:var(--bg);background:var(--accent);border:1px solid var(--accent);padding:.8rem 1.6rem;clip-path:polygon(0 0,calc(100% - 12px) 0,100% 12px,100% 100%,12px 100%,0 calc(100% - 12px));box-shadow:0 0 24px rgba(255,122,26,.4)}
+.btn:hover{background:var(--accent2)}
+.btn.ghost{background:transparent;color:var(--accent);box-shadow:none;margin-left:.5rem}
+.btn.ghost:hover{background:rgba(255,122,26,.1)}
+.stack{margin:3rem 0 0;display:flex;flex-wrap:wrap;gap:.5rem;padding:0;list-style:none}
+.stack li{border:1px solid var(--line);background:rgba(19,13,10,.7);padding:.2rem .8rem;font-size:.82rem;color:var(--muted);border-radius:4px}
+
+section{padding:5rem 0;border-bottom:1px solid var(--line)}
+h2{font-family:var(--display);font-weight:600;font-size:clamp(1.75rem,4vw,2.5rem);line-height:1.1;margin:0 0 2.25rem}
+.filters{display:flex;flex-wrap:wrap;gap:.5rem;margin-bottom:2rem}
+.filters button{font:inherit;font-size:.88rem;background:transparent;color:var(--muted);border:1px solid var(--line);border-radius:4px;padding:.4rem 1rem;cursor:pointer}
+.filters button:hover{color:var(--ink);border-color:var(--muted)}
+.filters button[aria-pressed="true"]{color:var(--accent);border-color:var(--accent);background:rgba(255,122,26,.08)}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(18rem,1fr));gap:1.5rem}
+.card{background:var(--surface);border:1px solid var(--line);overflow:hidden;transition:border-color .2s,box-shadow .2s,transform .2s}
+.card:hover{border-color:var(--accent);box-shadow:0 0 28px rgba(255,122,26,.2);transform:translateY(-3px)}
+.card[hidden]{display:none}
+.thumb{height:10.5rem;position:relative;border-bottom:1px solid var(--line);background:radial-gradient(circle at 50% 55%,color-mix(in srgb,currentColor 20%,transparent),transparent 68%)}
+.thumb::before{content:"";position:absolute;inset:0;background:linear-gradient(var(--line) 1px,transparent 1px) 0 0/24px 24px,linear-gradient(90deg,var(--line) 1px,transparent 1px) 0 0/24px 24px;opacity:.55}
+.thumb svg{position:relative;display:block;width:100%;height:100%;filter:drop-shadow(0 0 8px currentColor)}
+.txt{padding:1.25rem 1.25rem 1.5rem}
+.card h3{font-family:var(--display);font-weight:600;font-size:1.3rem;margin:0 0 .25rem}
+.card p{margin:0 0 .75rem;color:var(--muted);font-size:.92rem;line-height:1.6}
+.card .tags{font-size:.8rem;color:var(--accent);margin:0}
+
+.services{display:grid;grid-template-columns:repeat(auto-fit,minmax(15rem,1fr));gap:2.5rem}
+.services div{border-left:2px solid var(--accent2);padding-left:1.25rem}
+.services h3{font-family:var(--display);font-weight:600;margin:0 0 .5rem;font-size:1.25rem}
+.services p{margin:0;color:var(--muted);font-size:.95rem}
+footer{padding:2rem 0;color:var(--muted);font-size:.85rem}
+footer a{color:var(--accent)}
+@media (max-width:40rem){nav{gap:1rem;font-size:.85rem}.hero .wrap{padding-top:4rem;padding-bottom:4rem}.btn.ghost{margin:.75rem 0 0}}
+@media (prefers-reduced-motion:reduce){.card{transition:none}.card:hover{transform:none}}
+</style>
+</head>
+<body>
+<header>
+  <div class="wrap bar">
+    <a class="logo" href="#top">Kyn<span>era</span></a>
+    <nav aria-label="Navigation principale"><a href="#projets">Projets</a><a href="#services">Services</a><a href="https://github.com/ivntnk" target="_blank" rel="noopener">GitHub</a></nav>
+  </div>
+</header>
+
+<main id="top">
+  <div class="hero">
+    <canvas id="net" aria-hidden="true"></canvas>
+    <div class="wrap">
+      <h1>Nous construisons les produits web de demain.</h1>
+      <p>Studio de développement indépendant. Logiciels, outils et plugins Minecraft sur mesure, simples et efficaces.</p>
+      <a class="btn" href="#projets">Voir nos réalisations</a><a class="btn ghost" href="https://github.com/ivntnk" target="_blank" rel="noopener">Notre GitHub</a>
+      <ul class="stack" aria-label="Technologies"><li>C#</li><li>Java</li><li>C++</li><li>Python</li><li>JavaScript</li><li>HTML &amp; CSS</li></ul>
+    </div>
+  </div>
+
+  <section id="projets"><div class="wrap">
+    <h2>Projets récents</h2>
+    <div class="filters" role="group" aria-label="Filtrer les projets">
+      <button aria-pressed="true" data-f="tous">Tous</button>
+      <button aria-pressed="false" data-f="minecraft">Plugins Minecraft</button>
+      <button aria-pressed="false" data-f="logiciel">Logiciels</button>
+      <button aria-pressed="false" data-f="outil">Outils</button>
+      <button aria-pressed="false" data-f="web">Sites web</button>
+    </div>
+    <div class="grid" id="grid"></div>
+  </div></section>
+
+  <section id="services"><div class="wrap">
+    <h2>Ce que nous faisons</h2>
+    <div class="services">
+      <div><h3>Logiciels sur mesure</h3><p>Applications et outils en C#, Java ou C++, conçus autour de votre besoin.</p></div>
+      <div><h3>Plugins Minecraft</h3><p>Plugins pour serveurs et personnalisation de l’expérience de jeu.</p></div>
+      <div><h3>Sites web et serveurs</h3><p>Sites simples en HTML, CSS et JavaScript, et installation de serveurs en local ou à distance.</p></div>
+    </div>
+  </div></section>
+</main>
+<footer><div class="wrap">© <span id="y"></span> Kynera. Tous droits réservés. <a href="https://github.com/ivntnk" target="_blank" rel="noopener">GitHub</a></div></footer>
+
+<script>
+const S='<g fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" stroke-linecap="round">';
+const cube=(dx)=>`<g transform="translate(${dx} 0)"><path d="M160 22l56 30v60l-56 30-56-30V52z" fill="currentColor" fill-opacity=".14"/><path d="M104 52l56 30 56-30M160 82v60"/></g>`;
+const svg=(b)=>`<svg viewBox="0 0 320 152" role="img" aria-hidden="true">${S}${b}</g></svg>`;
+const ART={
+  nova:svg(cube(-30)+'<ellipse cx="160" cy="76" rx="130" ry="30" transform="rotate(-14 160 76)" opacity=".7"/><circle cx="268" cy="48" r="5" fill="currentColor"/><circle cx="46" cy="110" r="3" fill="currentColor"/><path d="M280 104l4 8 8 4-8 4-4 8-4-8-8-4 8-4z" opacity=".8"/>'),
+  seven:svg('<circle cx="160" cy="76" r="64" fill="currentColor" fill-opacity=".1"/><circle cx="160" cy="76" r="50" opacity=".5"/><circle cx="160" cy="76" r="36" opacity=".5"/><circle cx="160" cy="76" r="22" fill="currentColor"/><text x="160" y="82" font-size="17" font-weight="700" text-anchor="middle" fill="#0A0706" stroke="none" font-family="monospace">77</text><path d="M236 20l30 40" stroke-width="4"/><circle cx="268" cy="64" r="6" fill="currentColor"/>'),
+  blocs:svg('<rect x="28" y="38" width="76" height="36" rx="7" fill="currentColor" fill-opacity=".14"/><rect x="122" y="84" width="76" height="36" rx="7" fill="currentColor" fill-opacity=".14"/><rect x="216" y="38" width="76" height="36" rx="7" fill="currentColor" fill-opacity=".14"/><path d="M104 56c24 0 0 46 18 46M198 102c24 0 0-46 18-46"/><circle cx="104" cy="56" r="4" fill="currentColor"/><circle cx="198" cy="102" r="4" fill="currentColor"/><text x="254" y="62" font-size="18" font-weight="700" text-anchor="middle" fill="currentColor" stroke="none" font-family="monospace">C#</text>'),
+  vote:svg(cube(-50)+'<rect x="226" y="52" width="76" height="12" rx="6"/><rect x="226" y="52" width="48" height="12" rx="6" fill="currentColor"/><path d="M264 92l5 10 11 2-8 8 2 11-10-5-10 5 2-11-8-8 11-2z" fill="currentColor" fill-opacity=".3"/>'),
+  bvn:svg(cube(-50)+'<path d="M214 24h74a8 8 0 0 1 8 8v30a8 8 0 0 1-8 8h-40l-16 16V70h-18a8 8 0 0 1-8-8V32a8 8 0 0 1 8-8z" fill="currentColor" fill-opacity=".14"/><text x="251" y="53" font-size="17" font-weight="700" text-anchor="middle" fill="currentColor" stroke="none" font-family="monospace">/bvn</text>'),
+  phantom:svg(cube(-50)+'<circle cx="262" cy="64" r="32"/><path d="M240 86l44-44" stroke-width="3"/><path d="M252 76v-14a10 10 0 0 1 20 0v14l-5-4-5 4-5-4z" opacity=".8"/>'),
+  wither:svg(cube(-50)+'<circle cx="262" cy="64" r="32"/><path d="M240 86l44-44" stroke-width="3"/><circle cx="249" cy="62" r="4.5" fill="currentColor"/><circle cx="262" cy="62" r="4.5" fill="currentColor"/><circle cx="275" cy="62" r="4.5" fill="currentColor"/>'),
+  files:svg('<path d="M26 48h32l8 10h36v58H26z" fill="currentColor" fill-opacity=".14"/><path d="M122 48h32l8 10h36v58h-76z" fill="currentColor" fill-opacity=".14"/><path d="M218 48h32l8 10h36v58h-76z" fill="currentColor" fill-opacity=".14"/><text x="64" y="100" font-size="14" text-anchor="middle" fill="currentColor" stroke="none" font-family="monospace">.py</text><text x="160" y="100" font-size="14" text-anchor="middle" fill="currentColor" stroke="none" font-family="monospace">.png</text><text x="256" y="100" font-size="14" text-anchor="middle" fill="currentColor" stroke="none" font-family="monospace">.txt</text><path d="M160 20v18M154 32l6 7 6-7"/>'),
+  guess:svg('<rect x="96" y="22" width="128" height="108" rx="14" fill="currentColor" fill-opacity=".14"/><text x="160" y="106" font-size="84" font-weight="700" text-anchor="middle" fill="currentColor" stroke="none" font-family="monospace">?</text><path d="M48 52l14-16 14 16M48 100l14 16 14-16M244 76h40M272 64l12 12-12 12" opacity=".8"/>')
+};
+ART.site=svg('<rect x="50" y="20" width="220" height="112" rx="10" fill="currentColor" fill-opacity=".12"/><path d="M50 44h220"/><circle cx="66" cy="32" r="3.5" fill="currentColor"/><circle cx="80" cy="32" r="3.5" fill="currentColor"/><circle cx="94" cy="32" r="3.5" fill="currentColor"/><path d="M70 66h90M70 80h62M70 102h40"/><rect x="180" y="58" width="70" height="56" rx="6"/><text x="215" y="97" font-size="28" font-weight="700" text-anchor="middle" fill="currentColor" stroke="none" font-family="monospace">K</text>');
+const PROJETS=[
+  {t:"NovaEngine",d:"Un moteur de jeu et sa suite de création complète pour concevoir des jeux de A à Z.",c:"logiciel",tags:"Moteur de jeu",a:"#FF7A1A",k:"nova"},
+  {t:"Double Seven",d:"Site web du label Double Seven.",c:"web",tags:"Site web",a:"#FFB347",k:"seven",u:"https://double-seven.fr"},
+  {t:"Kynera",d:"Le site portfolio du studio : une page unique en HTML, CSS et JavaScript, sans backend.",c:"web",tags:"HTML, CSS, JavaScript",a:"#FF8C42",k:"site",u:"https://github.com/ivntnk/kynera-website"},
+  {t:"Blocs",d:"Programmation visuelle par blocs : on assemble des blocs, on les relie, et Blocs génère le programme C#. Export en .exe ou en projet Visual Studio.",c:"logiciel",tags:"C++, Qt, C#",a:"#FF5A36",k:"blocs",u:"https://github.com/ivntnk/Code-Blocs"},
+  {t:"KYNVoteParty",d:"Vote Party : chaque vote fait progresser une barre commune et, une fois l’objectif atteint, tous les joueurs connectés reçoivent des récompenses configurables.",c:"minecraft",tags:"Java, PlaceholderAPI, AZLink",a:"#FF8C42",k:"vote",u:"https://github.com/ivntnk/KYNVoteParty"},
+  {t:"KYNBienvenuePlugin",d:"Les joueurs accueillent les nouveaux avec /bvn, sont récompensés, et un classement suit les plus accueillants. Français et anglais.",c:"minecraft",tags:"Java, PlaceholderAPI",a:"#FFD166",k:"bvn",u:"https://github.com/ivntnk/KYNBienvenuePlugin"},
+  {t:"KYNNoPhantom",d:"Bloque l’apparition des Phantoms sur le serveur, configurable monde par monde.",c:"minecraft",tags:"Java, Minecraft",a:"#FF7A1A",k:"phantom",u:"https://github.com/ivntnk/KYNNoPhantom"},
+  {t:"KYNNoWither",d:"Bloque l’apparition du Wither sur le serveur, configurable monde par monde.",c:"minecraft",tags:"Java, Minecraft",a:"#FF6B35",k:"wither",u:"https://github.com/ivntnk/KYNNoWither"},
+  {t:"Organisateur de fichiers",d:"Script qui range automatiquement les fichiers d’un dossier selon leur extension.",c:"outil",tags:"Python",a:"#F9A03F",k:"files",u:"https://github.com/ivntnk/Python-file-organizer-by-extension"},
+  {t:"FirstCSProject",d:"Mon premier programme C# : un jeu où l’on devine un nombre aléatoire. Inachevé, il m’a servi à apprendre le langage.",c:"logiciel",tags:"C#",a:"#FFB347",k:"guess",u:"https://github.com/ivntnk/FirstCSProject"}
+];
+const grid=document.getElementById("grid");
+grid.innerHTML=PROJETS.map(p=>`
+  <article class="card" data-c="${p.c}">
+    <div class="thumb" style="color:${p.a}" aria-hidden="true">${ART[p.k]}</div>
+    <div class="txt"><h3>${p.u?`<a href="${p.u}" target="_blank" rel="noopener" style="text-decoration:none">${p.t}</a>`:p.t}</h3><p>${p.d}</p><p class="tags">${p.tags}</p></div>
+  </article>`).join("");
+
+document.querySelectorAll(".filters button").forEach(b=>b.addEventListener("click",()=>{
+  document.querySelectorAll(".filters button").forEach(x=>x.setAttribute("aria-pressed",x===b));
+  grid.querySelectorAll(".card").forEach(c=>c.hidden=!(b.dataset.f==="tous"||c.dataset.c===b.dataset.f));
+}));
+document.getElementById("y").textContent=new Date().getFullYear();
+
+/* Réseau de particules */
+(function(){
+  const cv=document.getElementById("net"),ctx=cv.getContext("2d");
+  const still=matchMedia("(prefers-reduced-motion: reduce)").matches;
+  let w,h,pts=[],mouse={x:-999,y:-999};
+  function size(){
+    const r=cv.getBoundingClientRect(),d=Math.min(devicePixelRatio||1,2);
+    w=r.width;h=r.height;cv.width=w*d;cv.height=h*d;ctx.setTransform(d,0,0,d,0,0);
+    pts=Array.from({length:Math.round(w*h/12000)},()=>({x:Math.random()*w,y:Math.random()*h,vx:(Math.random()-.5)*.3,vy:(Math.random()-.5)*.3}));
+  }
+  function draw(){
+    ctx.clearRect(0,0,w,h);
+    for(const p of pts){if(!still){p.x+=p.vx;p.y+=p.vy;if(p.x<0||p.x>w)p.vx*=-1;if(p.y<0||p.y>h)p.vy*=-1}}
+    for(let i=0;i<pts.length;i++){
+      const a=pts[i];
+      for(let j=i+1;j<pts.length;j++){
+        const b=pts[j],d=Math.hypot(a.x-b.x,a.y-b.y);
+        if(d<120){ctx.strokeStyle=`rgba(255,122,26,${.3*(1-d/120)})`;ctx.beginPath();ctx.moveTo(a.x,a.y);ctx.lineTo(b.x,b.y);ctx.stroke()}
+      }
+      const m=Math.hypot(a.x-mouse.x,a.y-mouse.y);
+      if(m<160){ctx.strokeStyle=`rgba(255,179,71,${.65*(1-m/160)})`;ctx.beginPath();ctx.moveTo(a.x,a.y);ctx.lineTo(mouse.x,mouse.y);ctx.stroke()}
+      ctx.fillStyle="#FF7A1A";ctx.fillRect(a.x-1,a.y-1,2,2);
+    }
+    if(!still)requestAnimationFrame(draw);
+  }
+  cv.parentElement.addEventListener("pointermove",e=>{const r=cv.getBoundingClientRect();mouse.x=e.clientX-r.left;mouse.y=e.clientY-r.top});
+  cv.parentElement.addEventListener("pointerleave",()=>{mouse.x=mouse.y=-999});
+  addEventListener("resize",()=>{size();if(still)draw()});
+  size();draw();
+})();
+</script>
+</body>
+</html>
